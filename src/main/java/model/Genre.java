@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,5 +13,6 @@ public class Genre {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private int id;
 	@NotNull
+	@Column(unique = true)
 	private String name;
 }

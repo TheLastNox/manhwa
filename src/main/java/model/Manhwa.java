@@ -16,11 +16,12 @@ public class Manhwa {
 	@Column(unique = true)
 	private String name;
 	@NotNull
+	private Genre genre;
+	@NotNull
 	private String author; //username
 	@NotNull
 	private String relDate;
-	@NotNull
-	private Genre genre;
-	
+	private Long views;
+	private Long favorites;
 
 }

@@ -12,7 +12,6 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 public class User {
 	@Id
@@ -41,6 +40,6 @@ public class User {
 	private List<Genre> favGenre;
 	@OrderBy("name ASC")
 	private List<Manhwa> favManhwa;
-	
+
 
 }
