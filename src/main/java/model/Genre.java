@@ -9,10 +9,12 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Genre {
+	
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private int id;
+	@GeneratedValue( strategy=GenerationType.IDENTITY )
+	private Long id;
+	
 	@NotNull
-	@Column(unique = true)
+	@Column( unique = true )
 	private String name;
 }
