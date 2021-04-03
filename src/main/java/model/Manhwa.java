@@ -1,12 +1,14 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -31,6 +33,10 @@ public class Manhwa {
 	
 	@NotNull
 	private Date relDate;
+	
+	@NotNull
+	@OneToMany
+	private List<Chapter> chapters;
 	
 	private Long views;
 	
@@ -58,6 +64,10 @@ public class Manhwa {
 
 	public Date getRelDate() {
 		return relDate;
+	}
+
+	public List<Chapter> getChapters() {
+		return chapters;
 	}
 
 	public Long getViews() {
