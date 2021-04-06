@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Manhwa {
+public class ManhwaInfo {
 	
 	@Id
 	@GeneratedValue( strategy=GenerationType.IDENTITY )
@@ -26,17 +26,14 @@ public class Manhwa {
 	private String author; // username
 	
 	@NotNull
-	private Genre genre;
+	@OneToMany
+	private List<Genre> genres;
 	
 	@NotNull
 	private String summary;
 	
 	@NotNull
 	private Date relDate;
-	
-	@NotNull
-	@OneToMany
-	private List<Chapter> chapters;
 	
 	private Long views;
 	
@@ -54,8 +51,8 @@ public class Manhwa {
 		return author;
 	}
 
-	public Genre getGenre() {
-		return genre;
+	public List<Genre> getGenres() {
+		return genres;
 	}
 
 	public String getSummary() {
@@ -64,10 +61,6 @@ public class Manhwa {
 
 	public Date getRelDate() {
 		return relDate;
-	}
-
-	public List<Chapter> getChapters() {
-		return chapters;
 	}
 
 	public Long getViews() {

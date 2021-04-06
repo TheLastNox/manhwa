@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import dao.UserDao;
-import model.User;
+import entity.User;
+import repository.UserDao;
 
 @Controller
 @RequestMapping(path="/v1/api")

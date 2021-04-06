@@ -1,38 +1,38 @@
-package model;
-
-import java.util.List;
+package entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Chapter {
+public class Page {
 	
 	@Id
 	@GeneratedValue( strategy=GenerationType.IDENTITY )
 	private Long id;
 	
 	@NotNull
-	private String title;
+	private Long pageNumber;
 	
-	@OrderBy("name ASC")
-	@OneToMany
-	private List<Page> pages;
+	@NotNull
+	private String content;
+	
+	@NotNull
+	@ManyToOne
+	ChapterInfo chapterInfo;
 
 	public Long getId() {
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public Long getPageNumber() {
+		return pageNumber;
 	}
 
-	public List<Page> getPages() {
-		return pages;
+	public String getContent() {
+		return content;
 	}
 }

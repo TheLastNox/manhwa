@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("controller")
-@EntityScan("model")
-@EnableJpaRepositories("dao")
+@EntityScan("entity")
+@EnableJpaRepositories("repository")
 public class ManhwaApplication {
 
 	public static void main(String[] args) {
