@@ -13,49 +13,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.User;
-import repository.UserDao;
+import repository.UserRepository;
 
 @Controller
 @RequestMapping(path="/v1/api")
 public class UserController {
 	@Autowired
-	UserDao userDao;
+	UserRepository userRepository;
 	
 	@GetMapping(path="/user/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
-		return userDao.findAll();
+		return userRepository.findAll();
 	}
 	
 	@GetMapping(value = "/user/id/{id}")
 	public User getUserById(@PathVariable Long id) {
-		return userDao.findById(id);
+		return userRepository.findById(id);
 	}
 	
 	@GetMapping(value = "/user/username/{username}")
 	public User getUserByUsername(@PathVariable String username) {
-		return userDao.findByUsername(username);
+		return userRepository.findByUsername(username);
 	}
 	
 	@GetMapping(value = "/user/username/{email}")
 	public User getUserByEmail(@PathVariable String email) {
-		return userDao.findByEmail(email);
+		return userRepository.findByEmail(email);
 	}
 	
 	@PostMapping(path="/user/add")
 	public String addNewReader(@Validated @RequestBody User user) {
-		userDao.save(user);
+		userRepository.save(user);
 		return "L'utilisateur " + user.getUsername() + " a été ajouté.";
 	}
 	
 	@PutMapping (value = "/user/update")
 	public String updateReader(@RequestBody User user) {
-		userDao.save(user);
+		userRepository.save(user);
 		return "L'utilisateur "+ user.getUsername()+ " a été mis à jour.";
 	}
 	
 	@DeleteMapping (value = "/user/{id}")
 	public String deleteUserById(@PathVariable Integer id) {
-		userDao.deleteById(id);
+		userRepository.deleteById(id);
 		return "L'utilisateur a été supprimé.";
 	}
 }

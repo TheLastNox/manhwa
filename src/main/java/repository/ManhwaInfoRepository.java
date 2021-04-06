@@ -10,7 +10,7 @@ import entity.Genre;
 import entity.ManhwaInfo;
 
 @Repository
-public interface ManhwaInfoDao extends JpaRepository<ManhwaInfo, Integer> {
+public interface ManhwaInfoRepository extends JpaRepository<ManhwaInfo, Integer> {
 
 	ManhwaInfo findById(Long id);
 	ManhwaInfo findByName(String name);

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import entity.Chapter;
 
 @Repository
-public interface ChapterDao extends JpaRepository<Chapter, Integer>{
+public interface ChapterRepository extends JpaRepository<Chapter, Integer>{
 	
 	Chapter findById(Long id);
 	List<Chapter> findByChapterInfoManhwaInfoId(Long id);
-	List<Chapter> findByChapterInfoManhwaInfoName(String title);
+	List<Chapter> findByChapterInfoManhwaInfoName(String name);
 }

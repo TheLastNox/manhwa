@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import entity.FavoriteGenres;
 
 @Repository
-public interface FavoriteGenresDao extends JpaRepository<FavoriteGenres, Integer> {
+public interface FavoriteGenresRepository extends JpaRepository<FavoriteGenres, Integer> {
 	
 	FavoriteGenres findById(Long id);
 	FavoriteGenres findByUserId(Long id);
