@@ -28,11 +28,31 @@ public class Page {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getPageNumber() {
 		return pageNumber;
 	}
 
+	public void setPageNumber(Long pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
 	public String getContent() {
 		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public ChapterInfo getChapterInfo() {
+		return chapterInfo;
+	}
+
+	public void setChapterInfo(ChapterInfo chapterInfo) {
+		this.chapterInfo = chapterInfo;
 	}
 }

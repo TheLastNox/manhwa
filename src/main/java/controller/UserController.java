@@ -42,18 +42,18 @@ public class UserController {
 	}
 	
 	@PostMapping(path="/user/add")
-	public String addNewReader(@Validated @RequestBody User user) {
+	public String addNewUser(@Validated @RequestBody User user) {
 		userRepository.save(user);
 		return "L'utilisateur " + user.getUsername() + " a été ajouté.";
 	}
 	
-	@PutMapping (value = "/user/update")
-	public String updateReader(@RequestBody User user) {
+	@PutMapping(value = "/user/update")
+	public String updateUser(@RequestBody User user) {
 		userRepository.save(user);
 		return "L'utilisateur "+ user.getUsername()+ " a été mis à jour.";
 	}
 	
-	@DeleteMapping (value = "/user/{id}")
+	@DeleteMapping(value = "/user/{id}")
 	public String deleteUserById(@PathVariable Integer id) {
 		userRepository.deleteById(id);
 		return "L'utilisateur a été supprimé.";
