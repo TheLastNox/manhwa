@@ -21,7 +21,7 @@ public class Chapter {
 	
 	@NotNull
 	@ManyToOne
-	ChapterInfo manhwaInfo;
+	ManhwaInfo manhwaInfo;
 	
 	@NotNull
 	@OneToOne
@@ -38,6 +38,14 @@ public class Chapter {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public ManhwaInfo getManhwaInfo() {
+		return manhwaInfo;
+	}
+
+	public void setManhwaInfo(ManhwaInfo manhwaInfo) {
+		this.manhwaInfo = manhwaInfo;
 	}
 
 	public ChapterInfo getChapterInfo() {

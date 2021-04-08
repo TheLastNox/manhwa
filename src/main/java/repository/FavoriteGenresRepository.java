@@ -8,7 +8,6 @@ import entity.FavoriteGenres;
 @Repository
 public interface FavoriteGenresRepository extends JpaRepository<FavoriteGenres, Integer> {
 	
-	FavoriteGenres findById(Long id);
 	FavoriteGenres findByUserId(Long id);
 	FavoriteGenres findByUserUsername(String username);
 }

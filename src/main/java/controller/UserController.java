@@ -50,7 +50,7 @@ public class UserController {
 	@PutMapping(value = "/user/update")
 	public String updateUser(@RequestBody User user) {
 		userRepository.save(user);
-		return "L'utilisateur "+ user.getUsername()+ " a été mis à jour.";
+		return "L'utilisateur " + user.getUsername() + " a été mis à jour.";
 	}
 	
 	@DeleteMapping(value = "/user/{id}")

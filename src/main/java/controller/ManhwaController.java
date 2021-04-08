@@ -2,7 +2,13 @@ package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,5 +40,23 @@ public class ManhwaController {
 	@GetMapping(path="/manhwa/manhwaInfo/genres/{genres}")
 	public @ResponseBody Iterable<Manhwa> getManhwaByManhwaInfoGenres(Genre ...genre) {
 		return manhwaRepository.findByManhwaInfoGenres(genre);
+	}
+	
+	@PostMapping(path="/manhwa/add")
+	public String addNewmanhwa(@Validated @RequestBody Manhwa manhwa) {
+		manhwaRepository.save(manhwa);
+		return "Le manhwa " + manhwa.getManhwaInfo().getName() + " a été ajouté.";
+	}
+	
+	@PutMapping(value = "/manhwa/update")
+	public String updatemanhwa(@RequestBody Manhwa manhwa) {
+		manhwaRepository.save(manhwa);
+		return "Le manhwa " + manhwa.getManhwaInfo().getName() + " a été mis à jour.";
+	}
+	
+	@DeleteMapping(value = "/manhwa/{id}")
+	public String deletemanhwaById(@PathVariable Integer id) {
+		manhwaRepository.deleteById(id);
+		return "Le manhwa a été supprimé.";
 	}
 }
