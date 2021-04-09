@@ -1,0 +1,14 @@
+package com.project.manhwa.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.project.manhwa.entity.FavoriteManhwas;
+
+@Repository
+public interface FavoriteManhwasRepository extends JpaRepository<FavoriteManhwas, Integer> {
+	
+	FavoriteManhwas findById(Long id);
+	FavoriteManhwas findByUserId(Long id);
+	FavoriteManhwas findByUserUsername(String username);
+}
