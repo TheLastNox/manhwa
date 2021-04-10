@@ -3,6 +3,7 @@ package com.project.manhwa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +35,7 @@ public class PageController {
 	}
 	
 	@PostMapping(path="/page/add")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String addNewPage(@Validated @RequestBody Page page) {
 		List<Page> existingPages = pageRepository.findByChapterInfoAndPageNumber(
 				page.getChapterInfo(),
@@ -46,12 +48,14 @@ public class PageController {
 	}
 	
 	@PutMapping(path="/page/update")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String updatePage(@RequestBody Page page) {
 		pageRepository.save(page);
 		return "La page " + page.getPageNumber() + " a été mis à jour.";
 	}
 	
-	@DeleteMapping(path="/page/update")
+	@DeleteMapping(path="/page/{id}")
+	@PreAuthorize("hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String deletePage(@PathVariable Integer id) {
 		pageRepository.deleteById(id);
 		return "La page a été supprimée.";

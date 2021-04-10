@@ -1,6 +1,9 @@
 package com.project.manhwa.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,28 +25,33 @@ public class FavoriteManhwasController {
 	FavoriteManhwasRepository favoriteManhwasRepository;
 	
 	@GetMapping(path="/favoriteManhwas/user/id/{id}")
-	public @ResponseBody FavoriteManhwas getFavoriteManhwasByUserId(Long id) {
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
+	public @ResponseBody Optional<FavoriteManhwas> getFavoriteManhwasByUserId(Long id) {
 		return favoriteManhwasRepository.findByUserId(id);
 	}
 	
 	@GetMapping(path="/favoriteManhwas/user/username/{username}")
-	public @ResponseBody FavoriteManhwas getFavoriteManhwasByUserUsername(String username) {
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
+	public @ResponseBody Optional<FavoriteManhwas> getFavoriteManhwasByUserUsername(String username) {
 		return favoriteManhwasRepository.findByUserUsername(username);
 	}
 	
 	@PostMapping(path="/favoriteManhwas/add")
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String addNewfavoriteManhwas(@Validated @RequestBody FavoriteManhwas favoriteManhwas) {
 		favoriteManhwasRepository.save(favoriteManhwas);
 		return "Manhwa ajouté au favoris.";
 	}
 	
 	@PutMapping(value = "/favoriteManhwas/update")
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String updatefavoriteManhwas(@RequestBody FavoriteManhwas favoriteManhwas) {
 		favoriteManhwasRepository.save(favoriteManhwas);
 		return "Manhwa favoris mis à jour.";
 	}
 	
 	@DeleteMapping(value = "/favoriteManhwas/{id}")
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String deletefavoriteManhwasById(@PathVariable Integer id) {
 		favoriteManhwasRepository.deleteById(id);
 		return "Manhwa supprimé des favoris.";

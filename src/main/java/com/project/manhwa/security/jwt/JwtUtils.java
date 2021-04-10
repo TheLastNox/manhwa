@@ -1,6 +1,5 @@
 package com.project.manhwa.security.jwt;
 
-import java.security.SignatureException;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -39,10 +38,12 @@ public class JwtUtils {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
 
-	public boolean validateJwtToken(String authToken) throws SignatureException {
+	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
 			return true;
+		} catch (SignatureException e) {
+			logger.error("Invalid JWT signature: {}", e.getMessage());
 		} catch (MalformedJwtException e) {
 			logger.error("Invalid JWT token: {}", e.getMessage());
 		} catch (ExpiredJwtException e) {

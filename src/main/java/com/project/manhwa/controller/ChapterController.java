@@ -3,6 +3,7 @@ package com.project.manhwa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +30,7 @@ public class ChapterController {
 	}
 	
 	@PostMapping(path="/chapter/add")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String addNewPage(@Validated @RequestBody Chapter chapter) {
 		List<Chapter> existingChapters = chapterRepository.findByManhwaInfoAndChapterInfoChapterNumber(
 				chapter.getManhwaInfo(),
@@ -43,13 +45,15 @@ public class ChapterController {
 	}
 	
 	@PutMapping(path="/chapter/update")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String updatePage(@RequestBody Chapter chapter) {
 		chapterRepository.save(chapter);
 		return "Le chapitre " + chapter.getChapterInfo().getChapterNumber()
 				+ " de " + chapter.getManhwaInfo().getName() +" a été mis à jour.";
 	}
 	
-	@DeleteMapping(path="/chapter/update")
+	@DeleteMapping(path="/chapter/{id}")
+	@PreAuthorize("hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String deletePage(@PathVariable Integer id) {
 		chapterRepository.deleteById(id);
 		return "Le chapitre a été supprimé.";

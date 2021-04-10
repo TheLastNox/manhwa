@@ -1,6 +1,9 @@
 package com.project.manhwa.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,12 +26,12 @@ public class ManhwaInfoController {
 	ManhwaInfoRepository manhwaInfoRepository;
 	
 	@GetMapping(path="/manhwaInfo/id/")
-	public @ResponseBody ManhwaInfo getManhwaById(Long id) {
+	public @ResponseBody Optional<ManhwaInfo> getManhwaById(Long id) {
 		return manhwaInfoRepository.findById(id);
 	}
 	
 	@GetMapping(path="/manhwaInfo/name/")
-	public @ResponseBody ManhwaInfo getManhwaByName(String name) {
+	public @ResponseBody Optional<ManhwaInfo> getManhwaByName(String name) {
 		return manhwaInfoRepository.findByName(name);
 	}
 	
@@ -43,18 +46,21 @@ public class ManhwaInfoController {
 	}
 	
 	@PostMapping(path="/manhwaInfo/add")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String addNewmanhwaInfo(@Validated @RequestBody ManhwaInfo manhwaInfo) {
 		manhwaInfoRepository.save(manhwaInfo);
 		return "L'entête manhwa " + manhwaInfo.getName() + " a été ajouté.";
 	}
 	
 	@PutMapping(value = "/manhwaInfo/update")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String updatemanhwaInfo(@RequestBody ManhwaInfo manhwaInfo) {
 		manhwaInfoRepository.save(manhwaInfo);
 		return "L'entête manhwa " + manhwaInfo.getName() + " a été mis à jour.";
 	}
 	
 	@DeleteMapping(value = "/manhwaInfo/{id}")
+	@PreAuthorize("hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String deletemanhwaInfoById(@PathVariable Integer id) {
 		manhwaInfoRepository.deleteById(id);
 		return "L'entête manhwa a été supprimé.";

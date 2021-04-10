@@ -3,6 +3,7 @@ package com.project.manhwa.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,11 +25,13 @@ public class UserController {
 	UserRepository userRepository;
 	
 	@GetMapping(path="/user/all")
+	@PreAuthorize("hasRole('ADMIN')")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		return userRepository.findAll();
 	}
 	
 	@GetMapping(value = "/user/id/{id}")
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
 	public Optional<User> getUserById(@PathVariable Long id) {
 		return userRepository.findById(id);
 	}
@@ -44,18 +47,21 @@ public class UserController {
 	}
 	
 	@PostMapping(path="/user/add")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String addNewUser(@Validated @RequestBody User user) {
 		userRepository.save(user);
 		return "L'utilisateur " + user.getUsername() + " a été ajouté.";
 	}
 	
 	@PutMapping(value = "/user/update")
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String updateUser(@RequestBody User user) {
 		userRepository.save(user);
 		return "L'utilisateur " + user.getUsername() + " a été mis à jour.";
 	}
 	
 	@DeleteMapping(value = "/user/{id}")
+	@PreAuthorize("hasRole('READER') or hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String deleteUserById(@PathVariable Integer id) {
 		userRepository.deleteById(id);
 		return "L'utilisateur a été supprimé.";

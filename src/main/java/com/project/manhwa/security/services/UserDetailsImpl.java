@@ -39,7 +39,6 @@ public class UserDetailsImpl implements UserDetails {
 
 	public UserDetailsImpl(Long id, String username, String password, String name, String firstName, String email,
 			Date birthDate, String bio, boolean isAuthor, Collection<? extends GrantedAuthority> authorities) {
-		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -83,37 +82,12 @@ public class UserDetailsImpl implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public String getBio() {
-		return bio;
-	}
-
-	public boolean isAuthor() {
-		return isAuthor;
-	}
-
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 	
-
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -142,5 +116,29 @@ public class UserDetailsImpl implements UserDetails {
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public boolean isAuthor() {
+		return isAuthor;
 	}
 }

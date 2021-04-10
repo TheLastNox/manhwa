@@ -34,7 +34,7 @@ import com.project.manhwa.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/v1/api/auth")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -106,7 +106,7 @@ public class AuthController {
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+			Role userRole = roleRepository.findByName(ERole.ROLE_READER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
@@ -119,13 +119,13 @@ public class AuthController {
 
 					break;
 				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+					Role modRole = roleRepository.findByName(ERole.ROLE_AUTHOR)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(modRole);
 
 					break;
 				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+					Role userRole = roleRepository.findByName(ERole.ROLE_READER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
 				}

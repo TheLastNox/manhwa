@@ -1,6 +1,9 @@
 package com.project.manhwa.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,17 +24,18 @@ public class ChapterInfoController {
 	@Autowired
 	ChapterInfoRepository chapterInfoRepository;
 	
-	@GetMapping(path="/genre/all")
+	@GetMapping(path="/chapterInfo/all")
 	public @ResponseBody Iterable<ChapterInfo> getAllChapterInfo() {
 		return chapterInfoRepository.findAll();
 	}
 	
-	@GetMapping(path="/genre/id/{id}")
-	public @ResponseBody ChapterInfo getChapterInfoById(Long id) {
+	@GetMapping(path="/chapterInfo/id/{id}")
+	public @ResponseBody Optional<ChapterInfo> getChapterInfoById(Long id) {
 		return chapterInfoRepository.findById(id);
 	}
 	
 	@PostMapping(path="/chapterInfo/add")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String addNewchapterInfo(@Validated @RequestBody ChapterInfo chapterInfo) {
 		chapterInfoRepository.save(chapterInfo);
 		return "L'entête de chapitre " + chapterInfo.getChapterNumber()
@@ -39,6 +43,7 @@ public class ChapterInfoController {
 	}
 	
 	@PutMapping(value = "/chapterInfo/update")
+	@PreAuthorize("hasRole('AUTHOR')")
 	public String updatechapterInfo(@RequestBody ChapterInfo chapterInfo) {
 		chapterInfoRepository.save(chapterInfo);
 		return "L'entête de chapitre " + chapterInfo.getChapterNumber()
@@ -46,6 +51,7 @@ public class ChapterInfoController {
 	}
 	
 	@DeleteMapping(value = "/chapterInfo/{id}")
+	@PreAuthorize("hasRole('AUTHOR') or hasRole('ADMIN')")
 	public String deletechapterInfoById(@PathVariable Integer id) {
 		chapterInfoRepository.deleteById(id);
 		return "L'entête de chapitre a été supprimé.";

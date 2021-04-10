@@ -1,6 +1,9 @@
 package com.project.manhwa.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,28 +30,31 @@ public class GenreController {
 	}
 	
 	@GetMapping(path="/genre/id/{id}")
-	public @ResponseBody Genre getGenreById(Long id) {
+	public @ResponseBody Optional<Genre> getGenreById(Long id) {
 		return genreRepository.findById(id);
 	}
 	
 	@GetMapping(path="/genre/name/{name}")
-	public @ResponseBody Genre getGenreById(String name) {
+	public @ResponseBody Optional<Genre> getGenreById(String name) {
 		return genreRepository.findByName(name);
 	}
 	
 	@PostMapping(path="/genre/add")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String addNewgenre(@Validated @RequestBody Genre genre) {
 		genreRepository.save(genre);
 		return "Le genre " + genre.getName() + " a été ajouté.";
 	}
 	
 	@PutMapping(value = "/genre/update")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String updategenre(@RequestBody Genre genre) {
 		genreRepository.save(genre);
 		return "Le genre " + genre.getName() + " a été mis à jour.";
 	}
 	
 	@DeleteMapping(value = "/genre/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deletegenreById(@PathVariable Integer id) {
 		genreRepository.deleteById(id);
 		return "Le genre a été supprimé.";
